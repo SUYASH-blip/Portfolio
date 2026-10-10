@@ -2006,7 +2006,6 @@
             <a href="assets/Suyash_Giri_Resume.pdf" class="btn-secondary-outline" download>Download PDF</a>
           </div>
         </div>
-        <p class="resume-soon">Soon to be available.</p>
       </div>
     </section>
 
@@ -2023,8 +2022,8 @@
             </p>
           </div>
           <div class="footer-cta-right">
-            <a href="mailto:contact@yourdomain.com" class="btn-email-cta">
-              <span>contact@yourdomain.com</span>
+            <a href="mailto:suyashgiri938@gmail.com" class="btn-email-cta">
+              <span>suyashgiri938@gmail.com</span>
               <span class="arrow-icon-circle" style="background:#ffffff; color:var(--accent-red);">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -2033,8 +2032,8 @@
               </span>
             </a>
             <div class="footer-social-row">
-              <a href="#" class="social-link-btn" target="_blank">GitHub ↗</a>
-              <a href="#" class="social-link-btn" target="_blank">LinkedIn ↗</a>
+              <a href="https://github.com/SUYASH-blip" class="social-link-btn" target="_blank" rel="noopener">GitHub ↗</a>
+              <a href="https://www.linkedin.com/in/suyash-giri-a40110326" class="social-link-btn" target="_blank" rel="noopener">LinkedIn ↗</a>
             </div>
           </div>
         </div>
@@ -2088,9 +2087,9 @@
           <div>
             <h4 class="footer-col-title">Connect</h4>
             <ul class="footer-links-list">
-              <li><a href="mailto:contact@yourdomain.com">Email ↗</a></li>
-              <li><a href="#" target="_blank">GitHub ↗</a></li>
-              <li><a href="#" target="_blank">LinkedIn ↗</a></li>
+              <li><a href="mailto:suyashgiri938@gmail.com">Email ↗</a></li>
+              <li><a href="https://github.com/SUYASH-blip" target="_blank" rel="noopener">GitHub ↗</a></li>
+              <li><a href="https://www.linkedin.com/in/suyash-giri-a40110326" target="_blank" rel="noopener">LinkedIn ↗</a></li>
             </ul>
           </div>
         </div>
@@ -2151,6 +2150,40 @@
       const imgRatio = imgWidth / imgHeight;
 
       let drawW, drawH, drawX, drawY;
+
+      /* MOBILE (tall/portrait screens): plain "cover" would crop the wide frame down to a thin
+         middle slice and cut the face. Instead show MOBILE_VISIBLE of the frame width,
+         place it in the upper part of the screen, and fade its top/bottom edges into black. */
+      if (canvasRatio < 0.8) {
+        const MOBILE_VISIBLE = 0.7;   /* 0.5 = more zoomed in, 1 = whole frame width visible */
+        const MOBILE_TOP = 0.12;      /* image top position, as a fraction of screen height */
+        const FOCUS_X = 0.5;          /* horizontal centre of the face in the frame */
+
+        drawW = cWidth / MOBILE_VISIBLE;
+        drawH = drawW / imgRatio;
+        drawX = cWidth / 2 - drawW * FOCUS_X;
+        drawY = cHeight * MOBILE_TOP;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, cWidth, cHeight);
+        ctx.drawImage(img, drawX, drawY, drawW, drawH);
+
+        const fade = drawH * 0.2;
+        let g = ctx.createLinearGradient(0, drawY, 0, drawY + fade);
+        g.addColorStop(0, 'rgba(0,0,0,1)');
+        g.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, drawY, cWidth, fade);
+
+        g = ctx.createLinearGradient(0, drawY + drawH - fade, 0, drawY + drawH);
+        g.addColorStop(0, 'rgba(0,0,0,0)');
+        g.addColorStop(1, 'rgba(0,0,0,1)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, drawY + drawH - fade, cWidth, fade + 1);
+
+        lastRenderedIndex = index;
+        return;
+      }
 
       if (canvasRatio > imgRatio) {
         drawW = cWidth;
