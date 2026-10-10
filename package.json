@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "description": "Ultra smooth canvas frame scroll animation",
   "scripts": {
-    "start": "node server.js"
+    "start": "node local-server.js"
   }
 }
