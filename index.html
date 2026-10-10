@@ -1476,6 +1476,46 @@
         text-align: center;
       }
     }
+
+    /* =========================================
+       MOBILE HERO POLISH (phones only, desktop untouched)
+       Keeps the face visible at the top, text sits lower and stays readable
+    ========================================= */
+    @media (max-width: 640px) {
+      .bg-overlay-shade {
+        background: linear-gradient(to bottom,
+          rgba(0, 0, 0, 0.55) 0%,
+          rgba(0, 0, 0, 0) 20%,
+          rgba(0, 0, 0, 0) 38%,
+          rgba(0, 0, 0, 0.82) 62%,
+          rgba(0, 0, 0, 0.94) 100%);
+      }
+      .hero-section {
+        padding-top: 44vh;
+        padding-bottom: 40px;
+      }
+      .hero-main {
+        margin-top: 0;
+        gap: 24px;
+      }
+      .hero-title {
+        font-size: clamp(44px, 13vw, 60px);
+      }
+      .hero-subtitle {
+        font-size: 24px;
+      }
+      .hero-status {
+        margin-top: 20px;
+      }
+      .status-badge {
+        background: rgba(0, 0, 0, 0.6);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+      }
+      .hero-quote {
+        font-size: 18px;
+      }
+    }
   </style>
   <noscript><style>#preloader{display:none!important}html.is-preloading{overflow:auto!important}</style></noscript>
 </head>
